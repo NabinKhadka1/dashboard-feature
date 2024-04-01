@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context-api/userContext";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -10,15 +11,12 @@ const LoginPage = () => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-
+  const { setUser, userToken } = useContext(UserContext);
   useEffect(() => {
-    const localStorageToken = localStorage.getItem("stored_token")
-      ? localStorage.getItem("stored_token")
-      : "";
-    if (localStorageToken) {
+    if (userToken) {
       navigate("/");
     }
-  }, [navigate]);
+  }, [userToken]);
 
   const handleFormSubmission = async (e) => {
     e.preventDefault();
@@ -40,10 +38,15 @@ const LoginPage = () => {
           const token = await data[0]["jwt_token"];
           if (token) {
             localStorage.setItem("stored_token", token);
+            setUser({
+              full_name: data[0].full_name,
+              profile_picture: data[0].profile_picture,
+            });
             navigate("/");
           }
         }
       } catch (error) {
+        console.log(error);
         setError("Please enter correct username and password");
       }
     }
