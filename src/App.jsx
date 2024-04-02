@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { UserContextProvider } from "./context-api/userContext";
 import Transaction from "./pages/Transaction";
+import ErrorPage from "./pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
         <Dashboard />
       </ProtectedRoute>
     ),
+    errorElement: <ErrorPage />,
   },
   {
     path: "/login",

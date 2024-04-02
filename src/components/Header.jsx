@@ -42,6 +42,7 @@ const Header = () => {
                 ></path>
               </svg>
             </button>
+            <div className="ms-3 text-white text-xl font-medium">Dashboard</div>
           </div>
           <div className="flex items-center">
             <div className="flex items-center ms-3">

@@ -1,17 +1,24 @@
 import React from "react";
 import { routes } from "../constants/routes";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
+  const location = useLocation();
   const sidebarItems = routes.map((route) => (
     <li key={route.key}>
-      <Link
+      <NavLink
         to={route.path}
         className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
       >
         {route.icon}
-        <span className="ms-3">{route.name}</span>
-      </Link>
+        <span
+          className={`ms-3 ${
+            location.pathname === route.path ? "text-blue-500" : ""
+          }`}
+        >
+          {route.name}
+        </span>
+      </NavLink>
     </li>
   ));
   return (
