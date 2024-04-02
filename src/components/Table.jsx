@@ -27,9 +27,7 @@ const Table = ({ columns, data, pageSize }) => {
             {currentData.map((item, index) => (
               <tr
                 key={index}
-                className={`bg-white ${
-                  index % 2 === 0 ? "dark:bg-gray-800" : ""
-                } hover:bg-gray-50 dark:hover:bg-gray-600`}
+                className={`bg-white`}
               >
                 {Object.keys(item).map((key, innerIndex) => (
                   <td key={innerIndex} className="px-6 py-4">

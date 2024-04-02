@@ -1,9 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context-api/userContext";
 import profileImg from "../assets/profile.png";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser, setUserToken } = useContext(UserContext);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("stored_token");
+    localStorage.removeItem("userInfo");
+    setUser({});
+    setUserToken("");
+    navigate("/login");
+  };
+
   return (
     <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
       <div className="px-3 py-3 lg:px-5 lg:pl-3">
@@ -40,6 +51,7 @@ const Header = () => {
                   className="flex gap-2 text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                   aria-expanded="false"
                   data-dropdown-toggle="dropdown-user"
+                  onClick={() => setShowDropdown(!showDropdown)}
                 >
                   <img
                     className="w-8 h-8 rounded-full"
@@ -53,8 +65,11 @@ const Header = () => {
                   </span>
                 </button>
               </div>
+              {/* Drop down element */}
               <div
-                className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
+                className={`${
+                  showDropdown ? "" : "hidden"
+                } z-50 absolute block top-6 right-5  my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600`}
                 id="dropdown-user"
               >
                 <ul className="py-1" role="none">
@@ -68,13 +83,14 @@ const Header = () => {
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="#"
+                    <Link
+                      to="#"
+                      onClick={handleLogout}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                       role="menuitem"
                     >
                       Log out
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>

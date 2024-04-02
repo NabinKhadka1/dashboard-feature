@@ -16,7 +16,7 @@ const LoginPage = () => {
     if (userToken) {
       navigate("/");
     }
-  }, [userToken]);
+  }, [userToken, navigate]);
 
   const handleFormSubmission = async (e) => {
     e.preventDefault();
@@ -51,6 +51,7 @@ const LoginPage = () => {
       }
     }
   };
+
   return (
     <div className="bg-slate-400 h-screen flex justify-center">
       <div className="flex flex-col justify-center">

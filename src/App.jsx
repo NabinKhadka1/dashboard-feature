@@ -3,10 +3,12 @@ import Dashboard from "./pages/Dashboard";
 import LoginPage from "./pages/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { UserContextProvider } from "./context-api/userContext";
+import Transaction from "./pages/Transaction";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    index: true,
     element: (
       <ProtectedRoute>
         <Dashboard />
@@ -16,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
+  },
+  {
+    path: "/transaction",
+    element: <Transaction />,
   },
 ]);
 
